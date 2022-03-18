@@ -1,7 +1,9 @@
-        <!-- Navigation-->
+
+        
         <?php include("nav.inc.php"); ?>
-        <!-- Page Header-->
+        
         <?php include("header.inc.php"); ?>
+
         <!-- Main Content-->
         <main class="mb-4">
             <div class="container px-4 px-lg-5">
@@ -14,5 +16,6 @@
                 </div>
             </div>
         </main>
-        <!-- Footer-->
+        
         <?php include("footer.inc.php"); ?>
+        
