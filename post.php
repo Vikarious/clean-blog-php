@@ -9,4 +9,3 @@
         $layout_title = 'Les articles';
 
         include("view/post.view.php"); 
-        
