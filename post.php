@@ -1,5 +1,12 @@
-        <?php include("model/post1.model.php"); ?>
+<?php
+        // var_dump($_GET);
+        // exit;
+        /* die($_GET['article']); */
+        // echo($_GET['article']);
 
-        <?php $layout_title = 'Les articles'; ?>
+        include("model/post1.model.php");
+
+        $layout_title = 'Les articles';
+
+        include("view/post.view.php"); 
         
-        <?php include("view/post.view.php"); ?>
