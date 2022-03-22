@@ -14,9 +14,12 @@ try {
     ON post_author = ID
     
     INNER JOIN blog_categories
-    ON post_category = cat_id";
+    ON post_category = cat_id
+    
+    ORDER BY post_date DESC
+    ";
 
-    //die($query);
+    // die($query);
 
     $req = $pdo->query($query);
 
