@@ -1,6 +1,8 @@
-<?php
-        include("model/about.model.php");
+<?php 
+include("model/about.model.php");
 
-        $layout_title = 'A propos';
+$layout_title = 'A propos de nous...';
 
-        include("view/about.view.php");
+include("view/about.view.php"); 
+
+        

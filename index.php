@@ -1,6 +1,10 @@
-<?php
-        include("model/home.model.php");
+<?php 
+// Home Controller
 
-        $layout_title = 'Bienvenu sur mon site';
+include("model/home.model.php");
 
-        include("view/home.view.php");
+$layout_title = 'Titre = ' . $title;
+
+include("view/home.view.php");
+        
+        
