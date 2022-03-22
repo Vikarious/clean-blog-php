@@ -3,8 +3,10 @@
 //exit;
 //die($_GET['article']);
 //echo($_GET['article']);
+
+// Ce controller doit recevoir un parametre article
 if (!isset($_GET["article"])) {
-    die("RIEN : " . $e->getMessage());
+    die("Manque paramètre !");
 }
 include("model/post1.model.php"); 
 
