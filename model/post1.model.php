@@ -7,7 +7,7 @@ include("model/pdo.inc.php");
 
 try {
     $query = "
-    SELECT post_date, post_content, post_title, display_name, cat_descr 
+    SELECT post_img_url, post_date, post_content, post_title, display_name, cat_descr 
     FROM blog_posts
     
     INNER JOIN blog_users
@@ -25,7 +25,7 @@ try {
     $data = $req->fetch();
     //var_dump($data); 
 
-} catch(Exception $e) {
+} catch (Exception $e) {
     die("Erreur MySQL : " . $e->getMessage());
 }
 
