@@ -46,6 +46,8 @@
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.php">A propos</a></li>
 
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.php">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="admin_contact.php">Forms Fetch</a></li>
+
                 </ul>
             </div>
         </div>
