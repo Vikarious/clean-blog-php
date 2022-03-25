@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : lun. 21 mars 2022 à 13:05
--- Version du serveur :  5.7.19-log
--- Version de PHP : 7.4.14
+-- Host: localhost
+-- Generation Time: Mar 25, 2022 at 12:33 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,24 +18,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `afpa_blog1`
+-- Database: `afpa_blog1`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `blog_categories`
+-- Table structure for table `blog_categories`
 --
 
-DROP TABLE IF EXISTS `blog_categories`;
-CREATE TABLE IF NOT EXISTS `blog_categories` (
-  `cat_id` int(11) NOT NULL AUTO_INCREMENT,
-  `cat_descr` varchar(50) NOT NULL,
-  PRIMARY KEY (`cat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+CREATE TABLE `blog_categories` (
+  `cat_id` int(11) NOT NULL,
+  `cat_descr` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `blog_categories`
+-- Dumping data for table `blog_categories`
 --
 
 INSERT INTO `blog_categories` (`cat_id`, `cat_descr`) VALUES
@@ -49,23 +47,19 @@ INSERT INTO `blog_categories` (`cat_id`, `cat_descr`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `blog_comments`
+-- Table structure for table `blog_comments`
 --
 
-DROP TABLE IF EXISTS `blog_comments`;
-CREATE TABLE IF NOT EXISTS `blog_comments` (
-  `comment_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire',
+CREATE TABLE `blog_comments` (
+  `comment_ID` int(11) NOT NULL COMMENT 'Clé primaire',
   `comment_post_ID` int(11) NOT NULL COMMENT 'Clé vers le post',
   `comment_author` int(11) NOT NULL COMMENT 'Clé vers l''auteur',
-  `comment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date du commentaire',
-  `comment_content` text NOT NULL COMMENT 'Texte du commentaire',
-  PRIMARY KEY (`comment_ID`),
-  KEY `fk_blog_comments_blog_posts1` (`comment_post_ID`),
-  KEY `fk_blog_comments_blog_users1` (`comment_author`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+  `comment_date` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Date du commentaire',
+  `comment_content` text NOT NULL COMMENT 'Texte du commentaire'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `blog_comments`
+-- Dumping data for table `blog_comments`
 --
 
 INSERT INTO `blog_comments` (`comment_ID`, `comment_post_ID`, `comment_author`, `comment_date`, `comment_content`) VALUES
@@ -80,25 +74,44 @@ INSERT INTO `blog_comments` (`comment_ID`, `comment_post_ID`, `comment_author`, 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `blog_posts`
+-- Table structure for table `blog_contacts`
 --
 
-DROP TABLE IF EXISTS `blog_posts`;
-CREATE TABLE IF NOT EXISTS `blog_posts` (
-  `post_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire',
+CREATE TABLE `blog_contacts` (
+  `contact_ID` int(11) NOT NULL,
+  `contact_name` varchar(25) NOT NULL,
+  `contact_email` varchar(100) NOT NULL,
+  `contact_phone` varchar(25) NOT NULL,
+  `contact_message` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `blog_contacts`
+--
+
+INSERT INTO `blog_contacts` (`contact_ID`, `contact_name`, `contact_email`, `contact_phone`, `contact_message`) VALUES
+(9, 'Nono', 'nono@nono', '09 09 09 09', 'test sql 1'),
+(10, 'Nono', 'nono@nono', '08 08 08 08', 'AND (DELETE * from blog_users WHERE id=3)'),
+(11, 'Arnaud', 'arnaud@mail', '06 88 66 99', 'Mon message !!');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_posts`
+--
+
+CREATE TABLE `blog_posts` (
+  `post_ID` int(11) NOT NULL COMMENT 'Clé primaire',
   `post_author` int(11) NOT NULL COMMENT 'Clé vers l''auteur',
   `post_category` int(11) NOT NULL,
-  `post_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date du post',
+  `post_date` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'Date du post',
   `post_content` text NOT NULL COMMENT 'Contenu du post',
   `post_title` varchar(255) NOT NULL COMMENT 'Titre du post',
-  `post_img_url` varchar(255) NOT NULL COMMENT 'Url de image du post',
-  PRIMARY KEY (`post_ID`),
-  KEY `fk_blog_posts_blog_users` (`post_author`),
-  KEY `fk_blog_posts_blog_categories1` (`post_category`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+  `post_img_url` varchar(255) NOT NULL COMMENT 'Url de image du post'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `blog_posts`
+-- Dumping data for table `blog_posts`
 --
 
 INSERT INTO `blog_posts` (`post_ID`, `post_author`, `post_category`, `post_date`, `post_content`, `post_title`, `post_img_url`) VALUES
@@ -115,26 +128,22 @@ INSERT INTO `blog_posts` (`post_ID`, `post_author`, `post_category`, `post_date`
 -- --------------------------------------------------------
 
 --
--- Structure de la table `blog_users`
+-- Table structure for table `blog_users`
 --
 
-DROP TABLE IF EXISTS `blog_users`;
-CREATE TABLE IF NOT EXISTS `blog_users` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire',
+CREATE TABLE `blog_users` (
+  `ID` int(11) NOT NULL COMMENT 'Clé primaire',
   `user_login` varchar(20) NOT NULL COMMENT 'Login',
   `user_pass` varchar(32) NOT NULL COMMENT 'Password',
   `user_email` varchar(100) NOT NULL COMMENT 'Email',
   `display_name` varchar(100) NOT NULL COMMENT 'Nom affiché',
   `user_photo` varchar(45) NOT NULL DEFAULT 'user.jpg',
-  `user_admin` tinyint(1) NOT NULL DEFAULT '0',
-  `user_token` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `loginpassword` (`user_login`,`user_pass`),
-  UNIQUE KEY `email` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `user_admin` tinyint(1) NOT NULL DEFAULT 0,
+  `user_token` varchar(32) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `blog_users`
+-- Dumping data for table `blog_users`
 --
 
 INSERT INTO `blog_users` (`ID`, `user_login`, `user_pass`, `user_email`, `display_name`, `user_photo`, `user_admin`, `user_token`) VALUES
@@ -144,18 +153,92 @@ INSERT INTO `blog_users` (`ID`, `user_login`, `user_pass`, `user_email`, `displa
 (5, 'test2', '4eaa2c63e55d0a3a233d8cb6b7871cd0', 'test2@mail.com', 'Test Test 2', 'user.jpg', 0, NULL);
 
 --
--- Contraintes pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Contraintes pour la table `blog_comments`
+-- Indexes for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
+  ADD PRIMARY KEY (`cat_id`);
+
+--
+-- Indexes for table `blog_comments`
+--
+ALTER TABLE `blog_comments`
+  ADD PRIMARY KEY (`comment_ID`),
+  ADD KEY `fk_blog_comments_blog_posts1` (`comment_post_ID`),
+  ADD KEY `fk_blog_comments_blog_users1` (`comment_author`);
+
+--
+-- Indexes for table `blog_contacts`
+--
+ALTER TABLE `blog_contacts`
+  ADD PRIMARY KEY (`contact_ID`);
+
+--
+-- Indexes for table `blog_posts`
+--
+ALTER TABLE `blog_posts`
+  ADD PRIMARY KEY (`post_ID`),
+  ADD KEY `fk_blog_posts_blog_users` (`post_author`),
+  ADD KEY `fk_blog_posts_blog_categories1` (`post_category`);
+
+--
+-- Indexes for table `blog_users`
+--
+ALTER TABLE `blog_users`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `loginpassword` (`user_login`,`user_pass`),
+  ADD UNIQUE KEY `email` (`ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `blog_comments`
+--
+ALTER TABLE `blog_comments`
+  MODIFY `comment_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire', AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT for table `blog_contacts`
+--
+ALTER TABLE `blog_contacts`
+  MODIFY `contact_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `blog_posts`
+--
+ALTER TABLE `blog_posts`
+  MODIFY `post_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire', AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `blog_users`
+--
+ALTER TABLE `blog_users`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire', AUTO_INCREMENT=6;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `blog_comments`
 --
 ALTER TABLE `blog_comments`
   ADD CONSTRAINT `fk_blog_comments_blog_posts` FOREIGN KEY (`comment_post_ID`) REFERENCES `blog_posts` (`post_ID`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_blog_comments_blog_users1` FOREIGN KEY (`comment_author`) REFERENCES `blog_users` (`ID`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Contraintes pour la table `blog_posts`
+-- Constraints for table `blog_posts`
 --
 ALTER TABLE `blog_posts`
   ADD CONSTRAINT `fk_blog_posts_blog_categories1` FOREIGN KEY (`post_category`) REFERENCES `blog_categories` (`cat_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
